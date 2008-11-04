@@ -98,6 +98,16 @@ describe SimpleItem, 'encoding permalinks' do
   end
 end
 
+describe SimpleItem, "with non-english characters" do
+  before(:each) do
+    @item = SimpleItem.create!(:title => "Un ñandú super ñoño I've seen")
+  end
+  
+  it "should turn them to english characters" do
+    @item.to_param.should == "un-nandu-super-nono-ive-seen"
+  end
+end
+
 describe VirtualItem, 'using virtual fields as permalink source' do
   before(:each) do
     Item.delete_all
