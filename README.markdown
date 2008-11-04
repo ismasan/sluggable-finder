@@ -16,6 +16,8 @@ The plugin modifies to_param so it's transparent to link_to and url_for view hel
 
 ## FEATURES/PROBLEMS:
 
+Slugs are created when a model is created. Subsequent changes to the source field will not modify the slug unless you specifically change the value of the slug field. This is because permalinks should never change.
+
 Complete specs. To test, make sure you create an empty SQLite database file in spec/db/test.db
 
 Then run the following to load the test schema:

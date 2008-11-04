@@ -17,7 +17,7 @@ end
 # Simple slug
 #
 class SimpleItem < Item
-  sluggable_finder :title # defaults :to => :slug
+  sluggable_finder :title, :reserved_slugs => ['admin','settings'] # defaults :to => :slug
 end
 
 # Slug from virtual attribute
@@ -53,10 +53,11 @@ describe SimpleItem, 'encoding permalinks' do
     Item.delete_all
     @item = SimpleItem.create!(:title => 'Hello World')
     @item2 = SimpleItem.create(:title => 'Hello World')
+    @item3 = SimpleItem.create(:title => 'Admin')
   end
   
   it "should connect to test sqlite db" do
-    Item.count.should == 2
+    Item.count.should == 3
   end
   
   it "should create unique slugs" do
@@ -83,6 +84,18 @@ describe SimpleItem, 'encoding permalinks' do
     SimpleItem.find(@item.id.to_s).should == @item
   end
   
+  it "should not create reserved slug" do
+    lambda {
+      SimpleItem.find 'admin'
+    }.should raise_error(ActiveRecord::RecordNotFound)
+    SimpleItem.find('admin-2').to_param.should == @item3.to_param
+  end
+  
+  it "should keep original slugs" do
+    @item.title = 'some other title'
+    @item.save
+    @item.to_param.should == 'hello-world'
+  end
 end
 
 describe VirtualItem, 'using virtual fields as permalink source' do
