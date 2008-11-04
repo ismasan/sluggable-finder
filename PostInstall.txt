@@ -1,0 +1,7 @@
+
+For more information on sluggable_finder, see http://sluggable_finder.rubyforge.org
+
+NOTE: Change this information in PostInstall.txt 
+You can also delete it if you don't want it.
+
+
