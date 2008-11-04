@@ -1,7 +1,7 @@
 History.txt
 Manifest.txt
 PostInstall.txt
-README.rdoc
+README.markdown
 Rakefile
 lib/sluggable_finder.rb
 lib/sluggable_finder/core_ext.rb
