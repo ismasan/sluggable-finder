@@ -104,7 +104,7 @@ describe SimpleItem, "with non-english characters" do
   end
   
   it "should turn them to english characters" do
-    @item.to_param.should == "un-nandu-super-nono-ive-seen"
+    @item.to_param.should == "un-nandu-super-nono-i-ve-seen"
   end
 end
 

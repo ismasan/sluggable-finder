@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.date = %q{2008-11-04}
   s.email = ["ismaelct@gmail.com"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.markdown"]
-  s.files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.markdown", "Rakefile", "lib/sluggable_finder.rb", "lib/sluggable_finder/core_ext.rb", "lib/sluggable_finder/finder.rb", "lib/sluggable_finder/orm.rb", "script/console", "script/destroy", "script/generate", "spec/sluggable_finder_spec.rb", "spec/spec.opts", "spec/spec_helper.rb", "tasks/rspec.rake", "tasks/db.rake"]
+  s.files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.markdown", "Rakefile", "lib/sluggable_finder.rb", "lib/sluggable_finder/finder.rb", "lib/sluggable_finder/orm.rb", "script/console", "script/destroy", "script/generate", "spec/sluggable_finder_spec.rb", "spec/spec.opts", "spec/spec_helper.rb", "tasks/rspec.rake", "tasks/db.rake"]
   s.has_rdoc = false
   s.post_install_message = %q{PostInstall.txt}
   s.rdoc_options = ["--main", "README.markdown"]

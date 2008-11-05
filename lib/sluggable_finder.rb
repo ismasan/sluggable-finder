@@ -7,8 +7,8 @@ module SluggableFinder
   class << self
     
     def enable_activerecord
-      ActiveRecord::Base.extend Finder
-      ActiveRecord::Base.class_eval{include Orm}
+      ActiveRecord::Base.extend SluggableFinder::Finder
+      ActiveRecord::Base.class_eval{include SluggableFinder::Orm}
       # support for associations
       a = ActiveRecord::Associations
       returning([ a::AssociationCollection ]) { |classes|
@@ -17,12 +17,17 @@ module SluggableFinder
           classes << a::HasManyThroughAssociation
         end
       }.each do |klass|
-        klass.send :include, Finder
+        klass.send :include, SluggableFinder::Finder
         klass.class_eval { alias_method_chain :find, :slug }
       end
       
     end
     
+  end
+  
+  def self.encode(str)
+    ActiveSupport::Multibyte::Handlers::UTF8Handler.
+    		normalize(str,:d).split(//u).reject { |e| e.length > 1 }.join.strip.gsub(/[^a-z0-9]+/i, '-').downcase
   end
   
 end

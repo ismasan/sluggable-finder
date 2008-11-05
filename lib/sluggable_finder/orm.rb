@@ -78,9 +78,9 @@ module SluggableFinder
         suffix = ''
         begin
         proposed_slug = if self.send(destination_column.to_sym).blank?
-          self.send(source_column.to_sym).to_slug
+          SluggableFinder.encode self.send(source_column.to_sym)
         else
-          self.send(destination_column.to_sym).to_slug
+          SluggableFinder.encode self.send(destination_column.to_sym)
         end
         rescue Exception => e
         	raise e

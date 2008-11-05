@@ -4,7 +4,6 @@ PostInstall.txt
 README.markdown
 Rakefile
 lib/sluggable_finder.rb
-lib/sluggable_finder/core_ext.rb
 lib/sluggable_finder/finder.rb
 lib/sluggable_finder/orm.rb
 script/console
