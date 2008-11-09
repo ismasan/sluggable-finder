@@ -75,17 +75,17 @@ ActiveRecord, ActiveSupport
 
 ## INSTALL:
 
-At the moment this is not available in Github's gem repository, so you'll need to install manually:
+If you haven't yet, add github.com to your gem sources (you only need to do that once):
 
-    git clone git://github.com/ismasan/sluggable-finder.git
-    cd sluggable_finder
-    gem build sluggable_finder.gemspec
-    sudo gem install sluggable_finder.gem
+    gem sources -a http://gems.github.com
 
+Now you can install the normal way:
+
+    sudo gem install ismasan-sluggable_finder
 
 Then, in your Rails app's environment:
 
-    config.gem 'sluggable_finder'
+    config.gem "ismasan-sluggable_finder", :lib => 'sluggable_finder', :version => '>=2.0'
 
 If you wan to unpack the gem to you app's "vendor" directory:
 
