@@ -85,7 +85,7 @@ Now you can install the normal way:
 
 Then, in your Rails app's environment:
 
-    config.gem "ismasan-sluggable_finder", :lib => 'sluggable_finder', :version => '>=2.0'
+    config.gem "ismasan-sluggable_finder", :lib => 'sluggable_finder'
 
 If you wan to unpack the gem to you app's "vendor" directory:
 
