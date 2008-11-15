@@ -26,8 +26,12 @@ module SluggableFinder
   end
   
   def self.encode(str)
-    ActiveSupport::Multibyte::Handlers::UTF8Handler.
-    		normalize(str,:d).split(//u).reject { |e| e.length > 1 }.join.strip.gsub(/[^a-z0-9]+/i, '-').downcase
+    if defined?(ActiveSupport::Inflector.parameterize)
+      ActiveSupport::Inflector.parameterize(str).to_s
+    else
+      ActiveSupport::Multibyte::Handlers::UTF8Handler.
+      		normalize(str,:d).split(//u).reject { |e| e.length > 1 }.join.strip.gsub(/[^a-z0-9]+/i, '-').downcase
+    end
   end
   
 end
