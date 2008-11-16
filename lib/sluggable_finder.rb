@@ -2,7 +2,7 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 module SluggableFinder
-  VERSION = '2.0.1'
+  VERSION = '2.0.2'
   
   class << self
     
@@ -39,7 +39,7 @@ end
 require 'rubygems'
 require 'active_record'
 
-Dir.glob('lib/sluggable_finder/*.rb').each do |file|
+Dir.glob(File.dirname(__FILE__)+'/sluggable_finder/*.rb').each do |file|
   require file
 end
 
