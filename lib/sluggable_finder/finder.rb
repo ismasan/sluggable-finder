@@ -7,7 +7,7 @@ module SluggableFinder
       if (args.first.is_a?(String) and !(args.first =~ /\A\d+\Z/))#only contain digits
           options = {:conditions => ["#{ sluggable_finder_options[:to]} = ?", args.first]}
           first(options) or 
-            raise ActiveRecord::RecordNotFound.new("There is no #{sluggable_finder_options[:sluggable_type]} with #{sluggable_finder_options[:to]} '#{args.first}'")
+            raise SluggableFinder.not_found_exception.new("There is no #{sluggable_finder_options[:sluggable_type]} with #{sluggable_finder_options[:to]} '#{args.first}'")
       else
         find_without_slug(*args)
       end

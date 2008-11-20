@@ -4,6 +4,16 @@ $:.unshift(File.dirname(__FILE__)) unless
 module SluggableFinder
   VERSION = '2.0.2'
   
+  @@not_found_exception = nil
+  
+  def self.not_found_exception=(ex)
+    @@not_found_exception = ex
+  end
+  
+  def self.not_found_exception
+    @@not_found_exception || ActiveRecord::RecordNotFound
+  end
+  
   class << self
     
     def enable_activerecord

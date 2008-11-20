@@ -98,6 +98,23 @@ describe SimpleItem, 'encoding permalinks' do
   end
 end
 
+# Raising custom not found exceptions allows us to use this with merb's NotFound exception
+# or any framework
+describe "with custom exception" do
+  it "should raise custom exception if configured that way" do
+    class CustomException < StandardError;end
+    
+    SluggableFinder.not_found_exception = CustomException
+    lambda {
+      SimpleItem.find 'non-existing-slug'
+    }.should raise_error(CustomException)
+  end
+  
+  after(:all) do
+    SluggableFinder.not_found_exception = ActiveRecord::RecordNotFound
+  end
+end
+
 describe SimpleItem, "with non-english characters" do
   before(:each) do
     @item = SimpleItem.create!(:title => "Un ñandú super ñoño I've seen")
