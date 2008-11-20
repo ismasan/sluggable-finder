@@ -63,6 +63,18 @@ The idea is that you keep your controller actions clean and handle Not Found err
 		end  
 	end
 
+### Merb and custom NotFound exception
+
+In merb it would be nice to raise a NotFound exception instead of ActiveRecord's RecordNotFoundm so we don't need to clutter our controller with exception-handling code and we let the framework handle them.
+
+   	SluggableFinder.not_found_exception = Merb::ControllerExceptions::NotFound
+
+You can configure this to raise any exception you want.
+
+    class CustomException < StandardError; end
+
+    SluggableFinder.not_found_exception = CustomException
+
 ### Links
 
 Link generation remains the same, because the plugin overwrites your model's to_param method
