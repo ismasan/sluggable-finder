@@ -14,6 +14,11 @@ class Item < ActiveRecord::Base
   named_scope :published, :conditions => {:published => true}
 end
 
+# No sluggable finder, should be unnaffected
+#
+class NoFinder < Item
+
+end
 # Simple slug
 #
 class SimpleItem < Item
@@ -207,5 +212,19 @@ describe SimpleItem, 'with AR named scopes' do
     lambda {
       SimpleItem.published.find('not-published')
     }.should raise_error(ActiveRecord::RecordNotFound)
+  end
+end
+
+describe NoFinder, "with no finder" do
+  before(:each) do
+    NoFinder.delete_all
+    @item = NoFinder.create(:title => 'no finder here')
+    @string_id = "#{@item.id}-some-string"
+  end
+  
+  it "should use find normally" do
+    NoFinder.find(:first).should == @item
+    NoFinder.find(@item.id).should == @item
+    NoFinder.find(@string_id).should == @item
   end
 end

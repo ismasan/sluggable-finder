@@ -2,7 +2,7 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 module SluggableFinder
-  VERSION = '2.0.3'
+  VERSION = '2.0.4'
   
   @@not_found_exception = nil
   
@@ -28,7 +28,6 @@ module SluggableFinder
         end
       }.each do |klass|
         klass.send :include, SluggableFinder::Finder
-        klass.class_eval { alias_method_chain :find, :slug }
       end
       
     end
