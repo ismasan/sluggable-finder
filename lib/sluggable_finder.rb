@@ -2,7 +2,7 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 module SluggableFinder
-  VERSION = '2.0.4'
+  VERSION = '2.0.5'
   
   @@not_found_exception = nil
   
@@ -17,8 +17,7 @@ module SluggableFinder
   class << self
     
     def enable_activerecord
-      ActiveRecord::Base.extend SluggableFinder::Finder
-      ActiveRecord::Base.class_eval{include SluggableFinder::Orm}
+      ActiveRecord::Base.extend SluggableFinder::Orm::ClassMethods
       # support for associations
       a = ActiveRecord::Associations
       returning([ a::AssociationCollection ]) { |classes|
@@ -27,7 +26,8 @@ module SluggableFinder
           classes << a::HasManyThroughAssociation
         end
       }.each do |klass|
-        klass.send :include, SluggableFinder::Finder
+        klass.send :include, SluggableFinder::AssociationProxyFinder
+        klass.alias_method_chain :find, :slug
       end
       
     end

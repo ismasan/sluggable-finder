@@ -1,17 +1,17 @@
 module SluggableFinder
   module Orm
     
-    def self.included(base)
-      base.extend ClassMethods
-      base.class_eval{include InstanceMethods}
-      class << base
-        alias_method_chain :find, :slug
-      end
-    end
-    
     module ClassMethods
 
       def sluggable_finder(field = :title, options = {})
+        return if self.included_modules.include?(SluggableFinder::Orm::InstanceMethods)
+        extend SluggableFinder::BaseFinder
+        include SluggableFinder::Orm::InstanceMethods
+
+        class << self
+          alias_method_chain :find, :slug
+        end
+        
         write_inheritable_attribute(:sluggable_finder_options, {
           :sluggable_type => ActiveRecord::Base.send(:class_name_of_active_record_descendant, self).to_s,
           :from		        =>	field,
@@ -49,12 +49,8 @@ module SluggableFinder
             "#{sluggable_finder_options[:to]}"
           end
 
-          def the_scope
-            "#{sluggable_finder_options[:scope]}"
-          end
-
           def to_param
-          	send("#{sluggable_finder_options[:to]}")
+          	self.#{sluggable_finder_options[:to]}
           end
 
           #{scope_condition_method}

@@ -46,6 +46,7 @@ end
 #
 class Category < ActiveRecord::Base
   has_many :scoped_items
+  has_many :simple_items
 end
 
 class ScopedItem < Item
@@ -155,6 +156,28 @@ describe PermalinkItem,'writing to custom field' do
     
     @item.permalink.should == 'hello-world'
     @item.slug.should == nil
+  end
+end
+
+describe SimpleItem,"scoping finder" do
+  before(:each) do
+    Item.delete_all
+    @category1 = Category.create!(:name => 'Category one')
+    @category2 = Category.create!(:name => 'Category two')
+    # Lets create 3 items with the same title, two of them in the same category
+    @item1 = @category1.simple_items.create!(:title => '1 in 1')
+    @item2 = @category1.simple_items.create!(:title => '2 in 1')
+    @item3 = @category2.simple_items.create!(:title => '1 in 2')
+  end
+  
+  it "should find in scope" do
+    @category1.simple_items.find('1-in-1').should == @item1
+  end
+  
+  it "should not find out of scope" do
+    lambda{
+      @category2.simple_items.find('1-in-1')
+    }.should raise_error(ActiveRecord::RecordNotFound)
   end
 end
 

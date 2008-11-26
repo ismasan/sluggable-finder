@@ -1,16 +1,43 @@
 module SluggableFinder
   # This module is included by the base class as well as AR asociation collections
   #
-  module Finder
+  module BaseFinder
     
     def find_with_slug(*args)
-      if (respond_to?(:sluggable_finder_options) && args.first.is_a?(String) and !(args.first =~ /\A\d+\Z/))#only contain digits
-          options = {:conditions => ["#{ sluggable_finder_options[:to]} = ?", args.first]}
-          first(options) or 
-            raise SluggableFinder.not_found_exception.new("There is no #{sluggable_finder_options[:sluggable_type]} with #{sluggable_finder_options[:to]} '#{args.first}'")
+      return find_without_slug(*args) unless respond_to?(:sluggable_finder_options)
+      
+      options = sluggable_finder_options
+      error = "There is no #{options[:sluggable_type]} with #{options[:to]} '#{args.first}'"
+      
+      if (args.first.is_a?(String) and !(args.first =~ /\A\d+\Z/))#only contain digits
+          options = {:conditions => ["#{ options[:to]} = ?", args.first]}
+          with_scope(:find => options) do
+            find_without_slug(:first) or 
+            raise SluggableFinder.not_found_exception.new(error)
+          end
       else
         find_without_slug(*args)
       end
+      
+    end
+  end
+  
+  module AssociationProxyFinder
+    def find_with_slug(*args)
+      return find_without_slug(*args) unless @reflection.klass.respond_to?(:sluggable_finder_options)
+      options = @reflection.klass.sluggable_finder_options
+      error = "There is no #{options[:sluggable_type]} with #{options[:to]} '#{args.first}'"
+      
+      if (args.first.is_a?(String) and !(args.first =~ /\A\d+\Z/))#only contain digits
+          options = {:conditions => ["#{ options[:to]} = ?", args.first]}
+          with_scope(:find => options) do
+            find_without_slug(:first) or 
+            raise SluggableFinder.not_found_exception.new(error)
+          end
+      else
+        find_without_slug(*args)
+      end
+      
     end
   end
   
