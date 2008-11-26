@@ -4,6 +4,8 @@ Ismael Celis
 
 http://github.com/ismasan/sluggable_finder
 
+This gem is originally based on http://github.com/smtlaissezfaire/acts_as_sluggable/tree/master/lib%2Facts_as_slugable.rb
+
 ## DESCRIPTION:
 
 This is a variation of acts_as_sluggable, permalink_fu and acts_as_permalink. 
