@@ -26,6 +26,7 @@ module SluggableFinder
           classes << a::HasManyThroughAssociation
         end
       }.each do |klass|
+        klass.send :include, SluggableFinder::Finder
         klass.send :include, SluggableFinder::AssociationProxyFinder
         klass.alias_method_chain :find, :slug
       end

@@ -5,6 +5,7 @@ module SluggableFinder
 
       def sluggable_finder(field = :title, options = {})
         return if self.included_modules.include?(SluggableFinder::Orm::InstanceMethods)
+        extend SluggableFinder::Finder
         extend SluggableFinder::BaseFinder
         include SluggableFinder::Orm::InstanceMethods
 
