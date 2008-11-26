@@ -103,6 +103,14 @@ If you wan to unpack the gem to you app's "vendor" directory:
 
     rake gems:unpack
 
+## TODO:
+
+*Refactor. It works but I hate the code.
+
+*Avoid including in ALL models. At the moment we need to extend associations for all models. Not sure how to only extend associations for models that use the plugin.
+
+*Better testing for scoped collections. @user.posts.find 'blah' should only look in posts for @user without needing to add :scope
+
 ## LICENSE:
 
 (The MIT License)
