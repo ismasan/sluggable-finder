@@ -54,6 +54,12 @@ class ScopedItem < Item
   sluggable_finder :title, :scope => :category_id
 end
 
+describe "random slugs" do
+  it "should generate random slugs" do
+    SluggableFinder.random_slug_for(String).should_not be_nil
+  end
+end
+
 describe SimpleItem, 'encoding permalinks' do
   before(:each) do
     Item.delete_all
@@ -86,7 +92,7 @@ describe SimpleItem, 'encoding permalinks' do
     SimpleItem.find(@item.id).should == @item
   end
   
-  it "should by ID even if ID is string" do
+  it "should find by ID even if ID is string" do
     SimpleItem.find(@item.id.to_s).should == @item
   end
   
@@ -101,6 +107,11 @@ describe SimpleItem, 'encoding permalinks' do
     @item.title = 'some other title'
     @item.save
     @item.to_param.should == 'hello-world'
+  end
+  
+  it "should store random slug if field is nil" do
+   item = SimpleItem.create!(:title => nil)
+   item.to_param.should_not be_blank
   end
 end
 

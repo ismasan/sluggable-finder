@@ -2,7 +2,7 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 module SluggableFinder
-  VERSION = '2.0.5'
+  VERSION = '2.0.6'
   
   @@not_found_exception = nil
   
@@ -44,10 +44,15 @@ module SluggableFinder
     end
   end
   
+  def self.random_slug_for(klass)
+    Digest::SHA1.hexdigest( klass.name.to_s + Time.now.to_s )
+  end
+  
 end
 
 require 'rubygems'
 require 'active_record'
+require 'digest/sha1'
 
 Dir.glob(File.dirname(__FILE__)+'/sluggable_finder/*.rb').each do |file|
   require file

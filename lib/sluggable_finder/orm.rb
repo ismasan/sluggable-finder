@@ -70,14 +70,19 @@ module SluggableFinder
         s = self.create_sluggable_slug
         write_attribute(destination_column, s)
       end
-
+      
+      def get_value_or_generate_random(column_name)
+        v = self.send(column_name)
+        v || SluggableFinder.random_slug_for(self.class)
+      end
+      
       def create_sluggable_slug
         suffix = ''
         begin
-        proposed_slug = if self.send(destination_column.to_sym).blank?
-          SluggableFinder.encode self.send(source_column.to_sym)
+        proposed_slug = if self.send(destination_column.to_sym).blank? # self.slug
+          SluggableFinder.encode get_value_or_generate_random(source_column.to_sym) # self.title
         else
-          SluggableFinder.encode self.send(destination_column.to_sym)
+          SluggableFinder.encode get_value_or_generate_random(destination_column.to_sym) # self.slug
         end
         rescue Exception => e
         	raise e
