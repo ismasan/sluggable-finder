@@ -40,7 +40,7 @@ module SluggableFinder
       ActiveSupport::Inflector.parameterize(str).to_s
     else
       ActiveSupport::Multibyte::Handlers::UTF8Handler.
-      		normalize(str,:d).split(//u).reject { |e| e.length > 1 }.join.strip.gsub(/[^a-z0-9]+/i, '-').downcase
+      		normalize(str,:d).split(//u).reject { |e| e.length > 1 }.join.strip.gsub(/[^a-z0-9]+/i, '-').downcase.gsub(/-+$/, '') 
     end
   end
   
