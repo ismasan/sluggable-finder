@@ -5,7 +5,7 @@ ActiveRecord::Base.establish_connection(
   :dbfile=> File.join(File.dirname(__FILE__),'db','test.db')
 )
 
-LOGGER = Logger.new(File.dirname(__FILE__)+'/log/test.log')
+LOGGER = Logger.new(STDOUT)
 ActiveRecord::Base.logger = LOGGER
 
 # A test Model according to test schema in db/test.db
