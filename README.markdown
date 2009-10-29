@@ -89,17 +89,17 @@ ActiveRecord, ActiveSupport
 
 ## INSTALL:
 
-If you haven't yet, add github.com to your gem sources (you only need to do that once):
+If you haven't yet, add Gemcutter.org to your gem sources (you only need to do that once):
 
-    gem sources -a http://gems.github.com
+    gem sources -a http://gemcutter.org
 
 Now you can install the normal way:
 
-    sudo gem install ismasan-sluggable_finder
+    sudo gem install sluggable_finder
 
 Then, in your Rails app's environment:
 
-    config.gem "ismasan-sluggable_finder", :lib => 'sluggable_finder'
+    config.gem "sluggable_finder"
 
 If you wan to unpack the gem to you app's "vendor" directory:
 
