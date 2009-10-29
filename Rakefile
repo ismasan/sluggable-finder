@@ -4,11 +4,10 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "sluggable_finder"
-    s.summary = %Q{Easy nice permalinks for your ActiveRecord models}
+    s.summary = %Q{Easy friendly URLs for your ActiveRecord models}
     s.email = "ismaelct@gmail.com"
-    s.homepage = ""
-    s.description = %(This plugin allows models to generate a unique "slug" (url-enabled name) from any regular attribute.
-    Sluggable models can have a scope parameter so slugs are unique relative to a parent model.)
+    s.homepage = "http://github.com/ismasan/sluggable-finder"
+    s.description = %(This plugin allows models to generate a unique "slug" (url-enabled name) from any regular attribute. Add friendly URLs to your models with one line.)
     s.authors = ["Ismael Celis"]
     s.add_dependency 'activerecord', ">= 2.2.2"
   end
