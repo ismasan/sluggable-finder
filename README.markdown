@@ -52,6 +52,19 @@ rake db:create
 	# Provide a list or reserved slugs you don't want available as permalinks
 	#
 	sluggable_finder :title, :reserved_slugs => %w(admin settings users)
+    
+### Extra configuration
+
+By default, Integer-like permalinks will fallback to normal ActiveRecord IDs, so
+
+    Comment.find '1234'
+
+... Will look in the ID column instead of the slug column.
+If you're using Integer-like strings in your slug column, you can ignore integer ID lookup completely with:
+
+    class Comment < ActiveRecord::Base
+      sluggable_finder :title, :allow_integer_ids => false
+    end
 
 ### Controllers
 
