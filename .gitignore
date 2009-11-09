@@ -2,4 +2,3 @@
 *.cache
 *.log
 .DS_Store
-spec/db/*.db
