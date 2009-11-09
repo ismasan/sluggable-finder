@@ -18,7 +18,8 @@ module SluggableFinder
           :from		        =>	field,
         	:scope		      => 	nil,
         	:to			        =>  :slug,
-        	:reserved_slugs => []
+        	:reserved_slugs => [],
+        	:allow_integer_ids => true
         }.merge( options ))
         class_inheritable_reader :sluggable_finder_options
 

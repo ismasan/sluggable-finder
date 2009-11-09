@@ -25,6 +25,10 @@ class SimpleItem < Item
   sluggable_finder :title, :reserved_slugs => ['admin','settings'] # defaults :to => :slug
 end
 
+class StringOnlyItem < Item
+  sluggable_finder :title, :allow_integer_ids => false
+end
+
 # Slug from virtual attribute
 #
 class VirtualItem < Item
@@ -116,6 +120,29 @@ describe "SluggableFinder" do
     it "should store random slug if field is nil" do
      item = SimpleItem.create!(:title => nil)
      item.to_param.should_not be_blank
+    end
+  end
+  
+  describe ':allow_integer_ids => false' do
+    
+    before do
+      @item = StringOnlyItem.create!(:title => 'Hello World')
+      @item2 = StringOnlyItem.create!(:title => '1234567890')
+    end
+    
+    it 'should work by string permalink' do
+      StringOnlyItem.find('hello-world').should == @item
+    end
+    
+    it 'should NOT allow real ID' do
+      lambda {
+        StringOnlyItem.find(@item.id)
+      }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+    
+    it 'should find by integer-like slugs' do
+      StringOnlyItem.find('1234567890').should == @item2
+      StringOnlyItem.find(1234567890).should == @item2
     end
   end
 
