@@ -102,17 +102,19 @@ ActiveRecord, ActiveSupport
 
 ## INSTALL:
 
-If you haven't yet, add github.com to your gem sources (you only need to do that once):
+You can install or clone the repo from Github, but the recommended way for normal usage is to install the latest stable version from Gemcutter.org:
 
-    gem sources -a http://gems.github.com
+If you haven't yet, add gemcutter.org to your gem sources (you only need to do that once):
+
+    gem sources -a http://gemcutter.org
 
 Now you can install the normal way:
 
-    sudo gem install ismasan-sluggable_finder
+    sudo gem install sluggable_finder
 
 Then, in your Rails app's environment:
 
-    config.gem "ismasan-sluggable_finder", :lib => 'sluggable_finder'
+    config.gem "sluggable_finder"
 
 If you wan to unpack the gem to you app's "vendor" directory:
 
@@ -120,7 +122,7 @@ If you wan to unpack the gem to you app's "vendor" directory:
 
 ## TODO:
 
-*Refactor. It works but I hate the code.
+*Refactor. It works but I hate the code. Find a way to override ActiveRecord.find more cleanly. Maybe Rails 3?
 
 ## LICENSE:
 
