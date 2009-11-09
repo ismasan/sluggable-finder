@@ -48,5 +48,6 @@ Spec::Rake::SpecTask.new(:spec) do |t|
   t.spec_opts = %w{-f s -c -L mtime}
 end
 
+load File.join(File.dirname(__FILE__), 'tasks', 'db.rake')
 
 task :default => :spec

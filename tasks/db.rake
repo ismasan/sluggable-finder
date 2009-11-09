@@ -1,3 +1,4 @@
+require 'active_record'
 db = {
   :adapter=>'sqlite3',
   :dbfile=> File.join(File.dirname(__FILE__),'..','spec','db','test.db')
