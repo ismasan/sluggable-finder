@@ -51,6 +51,7 @@ end
 class Category < ActiveRecord::Base
   has_many :scoped_items
   has_many :simple_items
+  has_many :string_only_items
 end
 
 class ScopedItem < Item
@@ -143,6 +144,30 @@ describe "SluggableFinder" do
     it 'should find by integer-like slugs' do
       StringOnlyItem.find('1234567890').should == @item2
       StringOnlyItem.find(1234567890).should == @item2
+    end
+    
+    describe 'with nested models' do
+      
+      before do
+        @category = Category.create(:name => 'foo')
+        @item1 = @category.string_only_items.create(:title => 'scoped string only')
+        @item2 = @category.string_only_items.create(:title => '987654321')
+      end
+      
+      it 'should work by string permalink' do
+        @category.string_only_items.find('scoped-string-only').should == @item1
+      end
+      
+      it 'should NOT allow integer ID' do
+        lambda {
+          @category.string_only_items.find(@item1.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+      
+      it 'should find by integer-like slugs' do
+        @category.string_only_items.find('987654321').should == @item2
+        @category.string_only_items.find(987654321).should == @item2
+      end
     end
   end
 
