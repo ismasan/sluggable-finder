@@ -1,8 +1,13 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 ActiveRecord::Base.establish_connection(
-  :adapter=>'sqlite3',
-  :dbfile=> File.join(File.dirname(__FILE__),'db','test.db')
+  # :adapter =>'sqlite3',
+  #   :database => File.join(File.dirname(__FILE__),'db','test.db')
+  :adapter => 'mysql',
+  :host => 'localhost',
+  :database => 'sluggable_finder_test',
+  :user => 'root',
+  :password => ''
 )
 
 LOGGER = Logger.new(STDOUT)
@@ -310,6 +315,25 @@ describe "SluggableFinder" do
       NoFinder.find(:first).should == @item
       NoFinder.find(@item.id).should == @item
       NoFinder.find(@string_id).should == @item
+    end
+  end
+  
+  describe 'collection setters' do
+    before do
+      @item1 = SimpleItem.create(:title => 'item1')
+      @item2 = SimpleItem.create(:title => 'item12')
+      @category = Category.create(:name => 'Cat1')
+    end
+    
+    it 'should assign children ids' do
+      @category.simple_item_ids = [@item1.id, @item2.id]
+      @category.simple_items.should == [@item1, @item2]
+    end
+    
+    it 'should not break when assigning empty array' do
+      lambda {
+       @category.simple_item_ids = []
+      }.should_not raise_error
     end
   end
 end

@@ -26,6 +26,9 @@ Then run the following to load the test schema:
 
 rake db:create
 
+Note: I'm using mysql for now due to an apparent bug in ActiveRecord's sqlite3 adapter.
+Look for configuration in spec/sluggable_finder_spec.rb
+
 ## SYNOPSIS:
 
 ### Models

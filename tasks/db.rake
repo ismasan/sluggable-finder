@@ -1,7 +1,12 @@
 require 'active_record'
 db = {
-  :adapter=>'sqlite3',
-  :dbfile=> File.join(File.dirname(__FILE__),'..','spec','db','test.db')
+  # :adapter=>'sqlite3',
+  #   :dbfile=> File.join(File.dirname(__FILE__),'..','spec','db','test.db')
+  :adapter => 'mysql',
+  :host => 'localhost',
+  :database => 'sluggable_finder_test',
+  :user => 'root',
+  :password => ''
 }
 ActiveRecord::Base.establish_connection( db )
 # define a migration
@@ -31,7 +36,7 @@ namespace :db do
   desc "Create test schema"
   task :create do
     # run the migration
-    File.unlink(db[:dbfile]) if File.exists?(db[:dbfile])
+    File.unlink(db[:dbfile]) if db[:adapter] == 'sqlite3' && File.exists?(db[:dbfile])
     ActiveRecord::Base.connection
     TestSchema.migrate(:up)
   end

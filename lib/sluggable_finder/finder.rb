@@ -4,7 +4,7 @@ module SluggableFinder
   module Finder
     def find_sluggable(opts,*args)
       key = args.first
-      if key.is_a?(Symbol) || (key.to_s =~ /\A\d+\Z/ && opts[:allow_integer_ids]) # normal INT find
+      if key.is_a?(Symbol) || key.kind_of?(Array) || (key.to_s =~ /\A\d+\Z/ && opts[:allow_integer_ids]) # normal INT find
         find_without_slug(*args)
       else # sluggable find
         options = {:conditions => ["#{ opts[:to]} = ?", key]}
