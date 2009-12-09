@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{sluggable_finder}
-  s.version = "2.2.0"
+  s.version = "2.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ismael Celis"]
-  s.date = %q{2009-11-09}
+  s.date = %q{2009-12-09}
   s.description = %q{This plugin allows models to generate a unique "slug" (url-enabled name) from any regular attribute. Add friendly URLs to your models with one line.}
   s.email = %q{ismaelct@gmail.com}
   s.extra_rdoc_files = [
