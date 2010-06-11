@@ -30,6 +30,10 @@ class SimpleItem < Item
   sluggable_finder :title, :reserved_slugs => ['admin','settings'] # defaults :to => :slug
 end
 
+class SimpleUpcaseItem < Item
+  sluggable_finder :title, :upcase => true
+end
+
 class StringOnlyItem < Item
   sluggable_finder :title, :allow_integer_ids => false
 end
@@ -126,6 +130,14 @@ describe "SluggableFinder" do
     it "should store random slug if field is nil" do
      item = SimpleItem.create!(:title => nil)
      item.to_param.should_not be_blank
+    end
+  end
+  
+  describe SimpleUpcaseItem, 'uppercase slugs' do
+    
+    it 'should uppercase slugs' do
+      item = SimpleUpcaseItem.create!(:title => 'tHis Should be Capitalized 1977')
+      item.to_param.should == 'THIS-SHOULD-BE-CAPITALIZED-1977'
     end
   end
   

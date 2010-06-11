@@ -19,7 +19,8 @@ module SluggableFinder
         	:scope		      => 	nil,
         	:to			        =>  :slug,
         	:reserved_slugs => [],
-        	:allow_integer_ids => true
+        	:allow_integer_ids => true,
+        	:upcase         => false
         }.merge( options ))
         class_inheritable_reader :sluggable_finder_options
 
@@ -85,6 +86,7 @@ module SluggableFinder
         else
           SluggableFinder.encode get_value_or_generate_random(destination_column.to_sym) # self.slug
         end
+        proposed_slug = proposed_slug.upcase if sluggable_finder_options[:upcase]
         rescue Exception => e
         	raise e
         end
