@@ -98,7 +98,6 @@ module SluggableFinder
         end
         _type_column = slugable_class.inheritance_column
         _class_name = self.class.name
-        puts 'AAAAAAAAAAAAAAAAAA' + _class_name
         slugable_class.transaction do
           #case insensitive
           conds_sql = "#{cond}#{destination_column} LIKE ? and #{scope_condition}"
