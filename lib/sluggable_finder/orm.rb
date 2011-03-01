@@ -20,7 +20,8 @@ module SluggableFinder
         	:to			        =>  :slug,
         	:reserved_slugs => [],
         	:allow_integer_ids => true,
-        	:upcase         => false
+        	:upcase         => false,
+        	:ignore_sti     => false # if true, Uniqueness won't check sibling classes.
         }.merge( options ))
         class_inheritable_reader :sluggable_finder_options
 
@@ -95,9 +96,14 @@ module SluggableFinder
         else
           "id != #{id} AND "
         end
+        _type_column = slugable_class.inheritance_column
+        _class_name = self.class.name
+        puts 'AAAAAAAAAAAAAAAAAA' + _class_name
         slugable_class.transaction do
           #case insensitive
-          existing = slugable_class.find(:first, :conditions => ["#{cond}#{destination_column} LIKE ? and #{scope_condition}",  proposed_slug + suffix])
+          conds_sql = "#{cond}#{destination_column} LIKE ? and #{scope_condition}"
+          conds_sql << " and #{_type_column} = '#{_class_name}'" if sluggable_finder_options[:ignore_sti]
+          existing = slugable_class.find(:first, :conditions => [conds_sql,  proposed_slug + suffix])
           while existing != nil or sluggable_finder_options[:reserved_slugs].include?(proposed_slug + suffix)
             if suffix.empty?
               suffix = "-2"

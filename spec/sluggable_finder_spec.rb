@@ -19,6 +19,14 @@ class Item < ActiveRecord::Base
   named_scope :published, :conditions => {:published => true}
 end
 
+class StiParent < Item
+  sluggable_finder :title, :ignore_sti => true
+end
+
+class StiChild < StiParent
+  
+end
+
 # No sluggable finder, should be unnaffected
 #
 class NoFinder < Item
@@ -346,6 +354,18 @@ describe "SluggableFinder" do
       lambda {
        @category.simple_item_ids = []
       }.should_not raise_error
+    end
+  end
+  
+  describe 'STI scope' do
+    before do
+      @sti1 = StiParent.create(:title => 'Slug')
+      @sti2 = StiChild.create(:title => 'Slug')
+    end
+    
+    it 'should not auto increment slugs' do
+      @sti1.slug.should == 'slug'
+      @sti2.slug.should == 'slug'
     end
   end
 end

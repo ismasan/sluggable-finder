@@ -19,6 +19,7 @@ class TestSchema < ActiveRecord::Migration
     create_table :items do |t|
       t.string :title
       t.string :slug
+      t.string :type
       t.string :permalink
       t.boolean :published
       t.integer :category_id
@@ -28,6 +29,7 @@ class TestSchema < ActiveRecord::Migration
 
   def self.down
     drop_table :items
+    drop_table :categories
   end
 end
 
