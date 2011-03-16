@@ -69,7 +69,7 @@ If you're using Integer-like strings in your slug column, you can ignore integer
       sluggable_finder :title, :allow_integer_ids => false
     end
     
-### Single Table Inheritance (STI)
+<h3 id="sti">Single Table Inheritance (STI)</h3>
 
 Slug uniqueness will be checked accross all classes in STI models. If you want to scope by sub-class, use :ignore_sti
 
