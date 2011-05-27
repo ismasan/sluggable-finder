@@ -19,7 +19,7 @@ module SluggableFinder
       ActiveRecord::Base.extend SluggableFinder::Orm::ClassMethods
       # support for associations
       a = ActiveRecord::Associations
-      tap([ a::AssociationCollection ]) { |classes|
+      a.tap { |classes|
         # detect http://dev.rubyonrails.org/changeset/9230
         unless a::HasManyThroughAssociation.superclass == a::HasManyAssociation
           classes << a::HasManyThroughAssociation
