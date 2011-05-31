@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sluggable_finder (2.3.1)
+    sluggable_finder (2.3.2)
       activerecord (<= 2.8.0)
 
 GEM
@@ -26,6 +26,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (>= 1.0.0)
   rake
   rspec
   sluggable_finder!
