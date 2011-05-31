@@ -12,7 +12,7 @@ ActiveRecord::Base.establish_connection(
 )
 
 LOGGER = Logger.new(STDOUT)
-ActiveRecord::Base.logger = LOGGER
+# ActiveRecord::Base.logger = LOGGER
 
 # A test Model according to test schema in db/test.db
 #
