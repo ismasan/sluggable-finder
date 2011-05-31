@@ -1,4 +1,7 @@
 ## sluggable_finder
+NOTE: THIS GEM IS RAILS 2.X COMPATIBLE ONLY.
+
+I have no intention to port it to 3.x, since this kind of thing is much easier in the newest ActiveRecord, anyway.
 
 Ismael Celis 
 
