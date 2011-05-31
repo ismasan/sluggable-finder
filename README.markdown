@@ -20,14 +20,15 @@ The plugin modifies to_param so it's transparent to link_to and url_for view hel
 
 Slugs are created when a model is created. Subsequent changes to the source field will not modify the slug unless you specifically change the value of the slug field. This is because permalinks should never change.
 
-Complete specs. To test, make sure you create an empty SQLite database file in spec/db/test.db
+Complete specs. To test, make sure you create an empty SQLite database.
 
-Then run the following to load the test schema:
+Run the following to load the test schema:
 
-rake db:create
+    rake db:create
 
-Note: I'm using mysql for now due to an apparent bug in ActiveRecord's sqlite3 adapter.
-Look for configuration in spec/sluggable_finder_spec.rb
+Now you can run the tests
+
+    rake spec
 
 ## SYNOPSIS:
 

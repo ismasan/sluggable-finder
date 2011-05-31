@@ -1,10 +1,9 @@
 require 'active_record'
 db = {
-  # :adapter=>'sqlite3',
-  #   :dbfile=> File.join(File.dirname(__FILE__),'..','spec','db','test.db')
-  :adapter => 'mysql',
+  :adapter=>'sqlite3',
+  :dbfile=> File.join(File.dirname(__FILE__),'..','spec','db','test.db'),
   :host => 'localhost',
-  :database => 'sluggable_finder_test',
+  :database => 'spec/db/sluggable_finder_test',
   :user => 'root',
   :password => ''
 }

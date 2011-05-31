@@ -1,11 +1,12 @@
-require File.dirname(__FILE__) + '/spec_helper'
+# encoding: UTF-8
+$KCODE = "UTF-8"
+require File.dirname(File.expand_path(__FILE__)) + '/spec_helper'
 
 ActiveRecord::Base.establish_connection(
-  # :adapter =>'sqlite3',
-  #   :database => File.join(File.dirname(__FILE__),'db','test.db')
-  :adapter => 'mysql',
+  :adapter =>'sqlite3',
+  :database => File.join(File.dirname(__FILE__),'db','test.db'),
   :host => 'localhost',
-  :database => 'sluggable_finder_test',
+  :database => 'spec/db/sluggable_finder_test',
   :user => 'root',
   :password => ''
 )
