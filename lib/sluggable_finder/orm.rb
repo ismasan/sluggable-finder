@@ -3,7 +3,7 @@ module SluggableFinder
     
     module ClassMethods
 
-      def sluggable_finder(field = :title, options = {})
+      def sluggable_finder(field = :title, options = {}, &slug_modifier)
         return if self.included_modules.include?(SluggableFinder::Orm::InstanceMethods)
         extend SluggableFinder::Finder
         extend SluggableFinder::BaseFinder
@@ -21,6 +21,7 @@ module SluggableFinder
         	:reserved_slugs => [],
         	:allow_integer_ids => true,
         	:upcase         => false,
+        	:slug_modifier  => slug_modifier || nil,
         	:ignore_sti     => false # if true, Uniqueness won't check sibling classes.
         }.merge( options ))
         class_inheritable_reader :sluggable_finder_options
@@ -76,6 +77,7 @@ module SluggableFinder
       
       def get_value_or_generate_random(column_name)
         v = self.send(column_name)
+        v = sluggable_finder_options[:slug_modifier].call(v) if sluggable_finder_options[:slug_modifier]
         v || SluggableFinder.random_slug_for(self.class)
       end
       

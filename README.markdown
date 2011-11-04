@@ -81,6 +81,14 @@ Slug uniqueness will be checked accross all classes in STI models. If you want t
       sluggable_finder :title, :ignore_sti => true
     end
 
+You can pass an optional block to pre-process the slug before saving
+  
+    class Comment < SomeParentClass
+      sluggable_finder :title do |slug_candidate|
+        "comment-#{slug_candidate}"
+      end
+    end
+    
 ### Controllers
 
 You can do Model.find(slug) just how you would with a single numerical ID. It will also raise a RecordNotFound exception so you can handle that in your application controller.

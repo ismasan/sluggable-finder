@@ -39,6 +39,12 @@ class SimpleItem < Item
   sluggable_finder :title, :reserved_slugs => ['admin','settings'] # defaults :to => :slug
 end
 
+class SimpleItemWithBlock < Item
+  sluggable_finder :title do |slug_candidate|
+    slug_candidate =~ /\A\d+\Z/ ? "p#{slug_candidate}" : slug_candidate
+  end
+end
+
 class SimpleUpcaseItem < Item
   sluggable_finder :title, :upcase => true
 end
@@ -139,6 +145,17 @@ describe "SluggableFinder" do
     it "should store random slug if field is nil" do
      item = SimpleItem.create!(:title => nil)
      item.to_param.should_not be_blank
+    end
+  end
+  
+  describe 'with modifier block' do
+    
+    it 'should pass slug through block before saving' do
+      item1 = SimpleItemWithBlock.create!(:title => 'Hello World')
+      item1.to_param.should == 'hello-world'
+      
+      item2 = SimpleItemWithBlock.create!(:title => '1234')
+      item2.to_param.should == 'p1234'
     end
   end
   
