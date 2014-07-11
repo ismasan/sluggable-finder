@@ -104,7 +104,7 @@ describe "SluggableFinder" do
     it "should connect to test sqlite db" do
       Item.count.should == 3
     end
-
+ 
     it "should create unique slugs" do
       @item.slug.should == 'hello-world'
       @item2.slug.should == 'hello-world-2'
@@ -143,8 +143,8 @@ describe "SluggableFinder" do
     end
 
     it "should store random slug if field is nil" do
-     item = SimpleItem.create!(:title => nil)
-     item.to_param.should_not be_blank
+     SimpleItem.create!(:title => nil).to_param.should_not be_blank
+     SimpleItem.create(:title => '.').to_param.should_not be_blank
     end
   end
   

@@ -78,7 +78,8 @@ module SluggableFinder
       def get_value_or_generate_random(column_name)
         v = self.send(column_name)
         v = sluggable_finder_options[:slug_modifier].call(v) if sluggable_finder_options[:slug_modifier]
-        v || SluggableFinder.random_slug_for(self.class)
+        encoded = SluggableFinder.encode(v.to_s)
+        (v.present? && encoded.present?) ? v : SluggableFinder.random_slug_for(self.class)
       end
       
       def create_sluggable_slug
