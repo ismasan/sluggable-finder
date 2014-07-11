@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sluggable_finder (2.3.3)
+    sluggable_finder (2.3.4)
       activerecord (<= 2.8.0)
 
 GEM
