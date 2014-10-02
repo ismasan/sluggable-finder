@@ -83,6 +83,10 @@ class ScopedItem < Item
   sluggable_finder :title, :scope => :category_id
 end
 
+class DifferentSeparatorItem < Item
+  sluggable_finder :title, :separator => ':'
+end
+
 describe "random slugs" do
   it "should generate random slugs" do
     SluggableFinder.random_slug_for(String).should_not be_nil
@@ -148,6 +152,17 @@ describe "SluggableFinder" do
     end
   end
   
+  describe 'with custom suffix separator' do
+    before(:each) do
+      DifferentSeparatorItem.create!(:title => 'A title')
+      @i2 = DifferentSeparatorItem.create!(:title => 'A title')
+    end
+
+    it 'creates unique slug with custom suffix separator' do
+      @i2.slug.should == 'a-title:2'
+    end
+  end
+
   describe 'with modifier block' do
     
     it 'should pass slug through block before saving' do

@@ -22,6 +22,7 @@ module SluggableFinder
         	:allow_integer_ids => true,
         	:upcase         => false,
         	:slug_modifier  => slug_modifier || nil,
+          :separator      => '-',
         	:ignore_sti     => false # if true, Uniqueness won't check sibling classes.
         }.merge( options ))
         class_inheritable_reader :sluggable_finder_options
@@ -108,7 +109,7 @@ module SluggableFinder
           existing = slugable_class.find(:first, :conditions => [conds_sql,  proposed_slug + suffix])
           while existing != nil or sluggable_finder_options[:reserved_slugs].include?(proposed_slug + suffix)
             if suffix.empty?
-              suffix = "-2"
+              suffix = "#{sluggable_finder_options[:separator]}2"
             else
               suffix.succ!
             end
