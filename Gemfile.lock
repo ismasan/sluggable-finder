@@ -1,15 +1,15 @@
 PATH
   remote: .
   specs:
-    sluggable_finder (2.3.4)
+    sluggable_finder (2.3.5)
       activerecord (<= 2.8.0)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    activerecord (2.3.11)
-      activesupport (= 2.3.11)
-    activesupport (2.3.11)
+    activerecord (2.3.18)
+      activesupport (= 2.3.18)
+    activesupport (2.3.18)
     diff-lcs (1.1.2)
     rake (0.8.7)
     rspec (2.6.0)
