@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec"
   s.add_development_dependency 'rake'
   s.add_development_dependency 'sqlite3'
-  s.add_dependency 'activerecord', "<= 2.8.0"
+  s.add_dependency 'activerecord', "<= 6.1.0"
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
